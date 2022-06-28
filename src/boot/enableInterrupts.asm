@@ -36,16 +36,11 @@ EnableInterrupts:
 
     sti
 
-;;; ACTUAL PROGRAM STARTS HERE
+    ; Entering the shell
+    extern shell
+    call shell
 
-extern shell
-call shell
-
-jmp $
-
-hello db "Hello, GVOS! Programmed to stay idle and not to work...", 0
-
-;;; ACTUAL PROGRAM ENDS HERE
+    jmp $
 
 idt_descr:
     dw idt_end - idt_base

@@ -21,7 +21,7 @@ Main:
     ; TODO: loop the interrupt if disk read fails
     xor dx, dx          ; Cilynder and head
     mov cx, 2           ; Starting sector
-    mov al, 5           ; Number of sectors to load
+    mov al, 10          ; Number of sectors to load
     mov ah, 0x02
     mov bx, 0
     mov es, bx
