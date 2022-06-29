@@ -1,8 +1,8 @@
 %define PAGE_PRESENT    (1 << 0)
 %define PAGE_WRITE      (1 << 1)
- 
-%define CODE_SEG     0x0008
-%define DATA_SEG     0x0010
+
+CODE_SEG equ GDT.Code - GDT
+DATA_SEG equ GDT.Data - GDT
  
 ALIGN 4
 IDT:
@@ -97,10 +97,24 @@ SwitchToLongMode:
 GDT:
 .Null:
     dq 0x0000000000000000             ; Null Descriptor - should be present.
- 
+
+; Code segment
 .Code:
-    dq 0x00209A0000000000             ; 64-bit code descriptor (exec/read).
-    dq 0x0000920000000000             ; 64-bit data descriptor (read/write).
+    dw 0xffff    ; segment length, bits 0-15
+    dw 0x0       ; segment base, bits 0-15
+    db 0x0       ; segment base, bits 16-23
+    db 10011010b ; access (8 bits)
+    db 10101111b ; flags (4 bits) + segment length, bits 16-19
+    db 0x0       ; segment base, bits 24-31
+
+; Data segment
+.Data:
+    dw 0xffff    ; segment length, bits 0-15
+    dw 0x0       ; segment base, bits 0-15
+    db 0x0       ; segment base, bits 16-23
+    db 10010010b ; access (8 bits)
+    db 11001111b ; flags (4 bits) + segment length, bits 16-19
+    db 0x0       ; segment base, bits 24-31
  
 ALIGN 4
     dw 0                              ; Padding to make the "address of the GDT" field aligned on a 4-byte boundary

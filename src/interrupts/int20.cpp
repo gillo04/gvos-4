@@ -1,36 +1,7 @@
 #define SCREEN_COLS 80
 #define SCREEN_ROWS 25
 
-inline void putChar(char c) {
-    __asm__ (
-        "mov %1, %%al;"
-        "mov $0x00, %%ah;"
-        "int $0x20;"
-        : "=r" ( *(int*)0 )
-        : "r" ( c )
-    );
-}
-
-inline void setCursorPosition(unsigned short pos) {
-    __asm__ (
-        "mov %1, %%bx;"
-        "mov $0x03, %%ah;"
-        "int $0x20;"
-        : "=r" ( *(int*)0 )
-        : "r" ( pos )
-    );
-}
-
-inline unsigned short getCursorPosition() {
-    unsigned short pos;
-    __asm__ (
-        "mov $0x04, %%ah;"
-        "int $0x20;"
-        "mov %%bx, %0;"
-        : "=r" ( pos )
-    );
-    return pos;
-}
+#include "../lib/int.hpp"
 
 extern "C" void PrintString(const char* str) {
     for (int i = 0; str[i] != 0; i++){
