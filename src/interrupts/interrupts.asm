@@ -24,7 +24,11 @@
 ;       0x03: delete file
 
 [global Int_20]
+[global CapsLock]
+[global Shift]
 %include "int20.asm"
 %include "keyboardConfigs.asm"
+CapsLock db 0
+Shift db 0
 
 times 512*2 - ($-$$) db 0
