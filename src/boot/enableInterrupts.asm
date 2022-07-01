@@ -1,10 +1,12 @@
 [bits 64]
 EnableInterrupts:
+    ; Finish setting up the IDT with values from linking time
     and word[idt_20.l],  0xffff
 
     shr word[idt_20.h],  16
     and word[idt_20.h],  0xffff
 
+    ; Load the IDT
     lidt [idt_descr]
 
     mov al, 0x11                ; initialization sequence

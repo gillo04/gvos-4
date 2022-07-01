@@ -9,4 +9,5 @@ To run GVOS 4 I use [Virtual Box](https://www.virtualbox.org/), setting the imag
 - x86_64 processor
 - At least 64MB of ram
 - A floppydisk reader
+
 I belive [Bochs](https://bochs.sourceforge.io/) and [Qemu](https://www.qemu.org/) would work aswell, although I have never tried them. I haven't tested it yet on real hardware, but I count on doing that soon.

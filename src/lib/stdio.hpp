@@ -1,54 +1,66 @@
 #include "int.hpp"
 
-// Unsigned int to string
-// Handles from binary to hexadecimal
-const char* utos(unsigned long num, unsigned int base, char* str) {
-    if (base < 2 || base > 16) {
+
+
+// Number to string
+// The possible bases range from binary to hex, not adbove
+template <class T>
+const char* ntos(T num, unsigned char base, char* str) {
+    if (base < 2 || base > 16)
         return str;
+
+    // Handle negative numbers
+    int i = 0;
+    bool negative = num < 0;
+    if (negative){
+        num = -num;
+        str[0] = '-';
+        i++;
     }
 
-    int i = 0;
+    // Encode
     do {
         str[i] = (num % base < 10) ? num % base + '0' : num % base + 'A' - 10;
         num /= base;
         i++;
     } while (num != 0);
+
+    // Terminate string
     str[i] = 0;
 
+    // Reverse string
     for (int j = 0; j < i/2; j++) {
-        char tmp = str[j];
-        str[j] = str[i-1-j];
+        int neg = (negative) ? 1 : 0;
+        char tmp = str[j + neg];
+        str[j + neg] = str[i-1-j];
         str[i-1-j] = tmp;
     }
     
-
     return str;
 }
 
-// Int to string
-// Handles from binary to hexadecimal
-const char* itos(long num, unsigned int base, char* str) {
-    if (num < 0){
-        num = -num;
-        str[0] = '-';
-        return utos(num, base, str+1)-1;
-    }
+// String to number
+// Only handles base 10 for now
+template<class T>
+T ston(const char* str) {
+    T num = 0;
+    bool negative = str[0] == '-';
 
-    return utos(num, base, str);
-}
-
-unsigned int stou(const char* str) {
-    unsigned int num = 0;
+    // Reach the end of the string
     int i = 0;
-    while (str[i] != 0) {
+    while (str[i] != 0)
         i ++;
-    }
 
+    // Decode
     int pow = 1;
-    for (i--; i >= 0; i--){
+    for (i--; i >= (negative) ? 1 : 0; i--){
         num += (str[i] - '0') * pow;
         pow *= 10;
     }
+
+    // Handle negative numbers
+    if (negative)
+        num = -num;
 
     return num;
 }

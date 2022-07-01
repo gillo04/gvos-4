@@ -1,5 +1,25 @@
 // C++ function wrappers for system interrupts
 
+inline unsigned char inb(unsigned short port) {
+    unsigned char ret;
+    __asm__("in %%dx, %%al" : "=a"(ret) : "d"(port));
+    return ret;
+}
+
+inline void outb(unsigned short port, unsigned char value) {
+    __asm__("out %%al, %%dx" : : "a"(value), "d"(port));
+}
+
+inline unsigned short inw(unsigned short port) {
+    unsigned short ret;
+    __asm__("in %%dx, %%ax" : "=a"(ret) : "d"(port));
+    return ret;
+}
+
+inline void outw(unsigned short port, unsigned short value) {
+    __asm__("out %%ax, %%dx" : : "a"(value), "d"(port));
+}
+
 /*
  *  INT 0X20
  */

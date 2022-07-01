@@ -17,7 +17,12 @@
 ;       0x00: malloc
 ;       0x01: memfree
 ;       0x02: realloc
-; ? 0xa3: File system
+; ? 0xa3: Disk
+;       0x00: read disk (CHS)
+;       0x01: write disk (CHS)
+;       0x03: read disk (LBA)
+;       0x04: write disk (LBA)
+; ? 0xa4: File system
 ;       0x00: load file
 ;       0x01: write file
 ;       0x02: create file
