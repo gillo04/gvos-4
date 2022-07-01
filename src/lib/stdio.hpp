@@ -1,7 +1,5 @@
 #include "int.hpp"
 
-
-
 // Number to string
 // The possible bases range from binary to hex, not adbove
 template <class T>
@@ -63,4 +61,37 @@ T ston(const char* str) {
         num = -num;
 
     return num;
+}
+
+// Printf-like function
+// Use *%d* for integers, *%u* for unsigned integers, *%c* for chars
+void printf(const char* format) {
+    print(format);
+}
+
+template<typename T, typename... Targs>
+void printf(const char* format, T value, Targs... Fargs) {
+    while (*format != '\0') {
+        if (*format == '%') {
+            format++;
+            char buff[65];
+            switch (*format) {
+            case 'd':
+                ntos((signed)value, 10, buff);
+                print(buff);
+                break;
+            case 'u':
+                ntos((unsigned)value, 10, buff);
+                print(buff);
+                break;
+            case 'c':
+                putChar(value);
+                break;
+            }
+            printf(format + 1, Fargs...); // recursive call
+            return;
+        }
+        putChar(*format);
+        format++;
+    }
 }
