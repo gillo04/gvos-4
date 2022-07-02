@@ -1,5 +1,8 @@
 #include "int.hpp"
 
+#define SCREEN_COLS 80
+#define SCREEN_ROWS 25
+
 // Number to string
 // The possible bases range from binary to hex, not adbove
 template <class T>
@@ -94,4 +97,13 @@ void printf(const char* format, T value, Targs... Fargs) {
         putChar(*format);
         format++;
     }
+}
+
+// Clear console
+void cls() {
+    setCursorPosition(0);
+    for (int i = 0; i < SCREEN_COLS* SCREEN_ROWS; i++) {
+        putChar(0);
+    }
+    setCursorPosition(0);
 }

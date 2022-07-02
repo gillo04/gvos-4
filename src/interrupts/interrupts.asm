@@ -12,6 +12,7 @@
 ;       0x04: get cursor position                           (BX: position)
 ;       0x05: get pointer to scan code set                  (RDI: pointer)
 ;       0x06: scan string                                   [RDI: output address, RSI: output size]
+;       0x07: set print color                               [RDI: color]
 ; ? 0xa1: GDT functions
 ; ? 0xa2: Heap
 ;       0x00: malloc
