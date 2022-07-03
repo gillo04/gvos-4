@@ -108,3 +108,15 @@ inline char* scan(char* str, long length) {
     );
     return out;
 }
+
+// ah 0x07
+inline void setColor(unsigned char color) {
+    unsigned long c = color;
+    __asm__ (
+        "mov %1, %%rdi;"
+        "mov $0x07, %%ah;"
+        "int $0x20;"
+        : "=r" ( *(int*)0 )
+        : "r" ( c )
+    );
+}

@@ -1,5 +1,14 @@
 #include "./lib/stdio.hpp"
 
+void DrawTopBar(){
+    setColor(0x70);
+    print("Use the up and down arrow keys to scroll");
+    int len = SCREEN_COLS - getCursorPosition();
+    for (int i = 0; i < len; i++)
+        putChar(' ');
+    setColor(0x07);
+}
+
 extern "C" void shell() {
     char buff[65];
 
@@ -10,8 +19,4 @@ extern "C" void shell() {
     cls();
     DrawTopBar();
 
-}
-
-void DrawTopBar(){
-    
 }

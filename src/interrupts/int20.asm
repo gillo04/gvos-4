@@ -16,6 +16,8 @@ Int_20:
     je GetScancodePointer
     cmp ah, 0x06
     je ScanString_gate
+    cmp ah, 0x07
+    je setColor
     iretq
 
 TeletypeOut:
@@ -35,6 +37,8 @@ TeletypeOut:
     pop dx
     pop rax
     mov [ecx], al
+    mov al, [textColor]
+    mov [ecx+1], al
 
     inc bx
     ; call SetCursorPosition
@@ -116,3 +120,8 @@ ScanString_gate:
     mov rax, 0
     call ScanString
     iretq
+
+setColor:
+    mov [textColor], di
+    iretq
+textColor db 0x07
